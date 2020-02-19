@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:orientation="vertical"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <!-- Movie data begins -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_backdrop"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="fitXY" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin">
+
+            <TextView
+                android:id="@+id/tv_rating"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableStart="@drawable/ic_star_24dp"
+                android:drawablePadding="@dimen/activity_horizontal_margin"
+                android:gravity="center|start"
+                android:text="@string/rating_stub" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_watch_now"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:drawableStart="@drawable/ic_play_circle_outline_24dp"
+                android:drawablePadding="@dimen/activity_horizontal_margin"
+                android:gravity="center|start"
+                android:text="@string/trailer" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_description"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_horizontal_margin" />
+    </LinearLayout>
+    <!-- Movie data End -->
+    <!-- Sheet Toolbar begins -->
+    <RelativeLayout
+        android:id="@+id/sheet_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/colorAccentTint">
+
+        <ImageButton
+            android:id="@+id/btn_close_sheet"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/movie_title_stub"
+            android:gravity="center_vertical|start"
+            android:src="@drawable/ic_close_24dp" />
+
+        <TextView
+            android:id="@+id/sheet_title"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_toEndOf="@+id/btn_close_sheet"
+            android:gravity="center_vertical|start"
+            android:text="@string/movie_title_stub"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+    <!-- Sheet Toolbar ends -->
+</FrameLayout>

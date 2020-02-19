@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/black</color>
+    <color name="colorPrimaryDark">@color/black</color>
+    <color name="colorAccent">@color/american_rose</color>
+    <color name="md_divider_dark_theme">#3B3C3F</color>
+    <color name="colorAccentTint">#30D81B60</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="black">#131313</color>
+    <color name="american_rose">#ff033e</color>
+
+</resources>

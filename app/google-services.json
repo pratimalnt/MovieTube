@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1038572716586",
+    "firebase_url": "https://movietube-19381.firebaseio.com",
+    "project_id": "movietube-19381",
+    "storage_bucket": "movietube-19381.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1038572716586:android:929b94a420e41e0e1af953",
+        "android_client_info": {
+          "package_name": "com.pratima.movietube"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1038572716586-f03s2u8r7le8dg0jlakbh154miuvn496.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pratima.movietube",
+            "certificate_hash": "16229f1f649714a7c4ce2b7d762af506e1e4002f"
+          }
+        },
+        {
+          "client_id": "1038572716586-ak6poair0s93j2k7aj115nnbf8p6aq4h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5gc0Bo22En1JStnSaC7R6Rf8XGjTKu0w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1038572716586-ak6poair0s93j2k7aj115nnbf8p6aq4h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
