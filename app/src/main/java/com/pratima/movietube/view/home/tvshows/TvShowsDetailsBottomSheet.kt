@@ -1,5 +1,6 @@
 package com.pratima.movietube.view.home.tvshows
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pratima.movietube.R
 import com.pratima.movietube.api.ApiConstants
 import com.pratima.movietube.model.TvShows
+import com.pratima.movietube.view.lttsPlayer.PlayerActivity
 
 class TvShowsDetailsBottomSheet(tvShowsInfo: TvShows) : BottomSheetDialogFragment()  {
     private val mTvShowsInfo = tvShowsInfo
@@ -68,7 +70,8 @@ class TvShowsDetailsBottomSheet(tvShowsInfo: TvShows) : BottomSheetDialogFragmen
     }
 
     private fun playVideo() {
-        Toast.makeText(activity, "Not Implemented", Toast.LENGTH_SHORT).show()
+        val playIntent = Intent(context, PlayerActivity::class.java)
+        startActivity(playIntent)
 
     }
 }
