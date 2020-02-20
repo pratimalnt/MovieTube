@@ -19,10 +19,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.pratima.movietube.R
-import com.pratima.movietube.model.Search
-import com.pratima.movietube.view.home.movie.MovieAdapter
+import com.pratima.movietube.model.DataModel
+import com.pratima.movietube.view.home.MovieAdapter
 import com.pratima.movietube.view.lttsPlayer.PlayerActivity
-import com.pratima.movietube.viewmodel.SearchViewModel
+import com.pratima.movietube.viewmodel.MovieViewModel
 
 
 /**
@@ -30,14 +30,13 @@ import com.pratima.movietube.viewmodel.SearchViewModel
  */
 class SearchActivityFragment : Fragment(), TextView.OnEditorActionListener {
 
-
     private val TAG = this::class.java.simpleName
-    private lateinit var mSearchViewModel: SearchViewModel
+    private lateinit var mSearchViewModel: MovieViewModel
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mProgressBar: ProgressBar
     private lateinit var mSearchView: EditText
     private lateinit var mAdapter: MovieAdapter
-    private lateinit var mSearchList: List<Search>
+    private lateinit var mSearchList: List<DataModel>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,7 +56,7 @@ class SearchActivityFragment : Fragment(), TextView.OnEditorActionListener {
     private fun initViewModel() {
 
         mSearchViewModel =
-            ViewModelProviders.of(this.activity!!).get<SearchViewModel>(SearchViewModel::class.java)
+            ViewModelProviders.of(this.activity!!).get<MovieViewModel>(MovieViewModel::class.java)
     }
 
     private fun initViews(rootView: View) {

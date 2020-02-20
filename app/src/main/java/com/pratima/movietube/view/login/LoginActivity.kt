@@ -3,6 +3,8 @@ package com.pratima.movietube.view.login
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.util.Patterns
 import android.view.View
@@ -24,6 +26,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.pratima.movietube.view.main.MainActivity
 import com.pratima.movietube.R
+import com.pratima.movietube.api.ApiConstants
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
@@ -33,15 +36,10 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         var PRIVATE_MODE = 0
         const val PREF_NAME = "com.pratima.movietube.user.login"
     }
-
-    private lateinit var mEmailText: EditText
-    private lateinit var mPasswordText: EditText
-    private lateinit var mLoginButton: Button
-    private lateinit var gSignInButton: SignInButton
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var mAuth: FirebaseAuth
     private val MOVIE_TUBE_GOOGLE_SIGN_IN = 1
-
+    private var valid = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -49,21 +47,49 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
     }
 
     private fun initViews() {
-        mEmailText = findViewById(R.id.username)
-        mPasswordText = findViewById(R.id.password)
-        mLoginButton = findViewById(R.id.login)
-        gSignInButton = findViewById(R.id.google_signin)
         configureGoogleClient()
         mAuth = FirebaseAuth.getInstance()
 
-        mLoginButton.setOnClickListener {
+        login.setOnClickListener {
             login_progress.visibility = View.VISIBLE
             loginUser()
         }
-
-        gSignInButton.setOnClickListener {
+        google_signin.setOnClickListener {
             gSignIn()
         }
+        username.setOnFocusChangeListener { view, hasFocus ->
+            if (!hasFocus) {
+                val email = username.text.toString()
+                if (!isUserNameValid(email)) {
+                    username.error = "enter a valid email address"
+                    valid = false
+                } else {
+                    username.error = null
+                    valid = true
+                }
+            }
+
+        }
+
+        password.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if (s.toString().isEmpty() || !isPasswordValid(s.toString())) {
+                    password.error = "more than 5 alphanumeric characters"
+                    valid = false
+                } else {
+                    password.error = null
+                    valid = true
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+        })
     }
 
     private fun gSignIn() {
@@ -118,7 +144,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
     }
 
     private fun loginUser() {
-        if (!validateLoginCredential()) {
+        if (!valid) {
             onLoginFailed()
             return
         }
@@ -131,47 +157,19 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         )
     }
 
-    private fun validateLoginCredential(): Boolean {
-        var valid = true
-
-        val email = mEmailText.text.toString()
-        val password = mPasswordText.text.toString()
-
-        if (!isUserNameValid(email)) {
-            mEmailText.error = "enter a valid email address"
-            valid = false
-        } else {
-            mEmailText.error = null
-        }
-
-        if (password.isEmpty() || !isPasswordValid(password)) {
-            mPasswordText.error = "more than 5 alphanumeric characters"
-            valid = false
-        } else {
-            mPasswordText.error = null
-        }
-
-        return valid
-    }
 
     // A placeholder username validation check
     private fun isUserNameValid(username: String): Boolean {
-        var isValid = false
 
-        if (!username.contains('@')) {
-            isValid = false
-        } else if (username.contains('@')) {
-            isValid = Patterns.EMAIL_ADDRESS.matcher(username).matches()
-        } else {
-            isValid = username.isNotBlank()
-        }
+        return username.isNotBlank() && username.contains('@') && ApiConstants.emailList.contains(
+            username
+        )
 
-        return isValid
     }
 
     // A placeholder password validation check
     private fun isPasswordValid(password: String): Boolean {
-        return password.length > 5
+        return ApiConstants.passwordList.contains(password)
     }
 
 
@@ -198,7 +196,5 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
     override fun onConnectionFailed(p0: ConnectionResult) {
         Toast.makeText(this, "Google Login failed" + p0.errorMessage, Toast.LENGTH_LONG).show()
     }
-
-
 }
 

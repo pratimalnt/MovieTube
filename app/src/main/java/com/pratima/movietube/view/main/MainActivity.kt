@@ -1,19 +1,14 @@
 package com.pratima.movietube.view.main
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.pratima.movietube.R
 import com.pratima.movietube.view.home.search.SearchActivity
-import com.pratima.movietube.viewmodel.SearchViewModel
 
 
 class MainActivity : AppCompatActivity() {

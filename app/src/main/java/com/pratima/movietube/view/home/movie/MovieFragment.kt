@@ -11,17 +11,16 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.pratima.movietube.R
-import com.pratima.movietube.model.Movie
+import com.pratima.movietube.model.DataModel
+import com.pratima.movietube.view.home.MovieAdapter
 import com.pratima.movietube.viewmodel.MovieViewModel
-import com.pratima.movietube.viewmodel.SearchViewModel
 
 class MovieFragment : Fragment() {
     private val TAG = this::class.java.simpleName
-    private lateinit var mSearchViewModel: SearchViewModel
     private lateinit var mMovieViewModel: MovieViewModel
     private var mRecyclerView: RecyclerView? = null
     private var mAdapter: MovieAdapter? = null
-    private  var movieList: List<Movie> ? = null
+    private  var movieList: List<DataModel> ? = null
 
 
 
@@ -56,8 +55,8 @@ class MovieFragment : Fragment() {
         // View Model
         mMovieViewModel =
             ViewModelProviders.of(this).get<MovieViewModel>(MovieViewModel::class.java)
-        mSearchViewModel =
-            ViewModelProviders.of(this.activity!!).get<SearchViewModel>(SearchViewModel::class.java)
+        mMovieViewModel =
+            ViewModelProviders.of(this.activity!!).get<MovieViewModel>(MovieViewModel::class.java)
     }
 
     private fun initViews(rootView: View) {
@@ -70,7 +69,7 @@ class MovieFragment : Fragment() {
         mRecyclerView?.adapter = mAdapter
 
         mAdapter!!.setOnItemClickListener {
-            showUpdateLevelSheet(it as Movie)
+            showUpdateLevelSheet(it as DataModel)
         }
     }
 
@@ -78,17 +77,17 @@ class MovieFragment : Fragment() {
         mMovieViewModel.popularMovieLiveData
             ?.observe(this, Observer {
 
-                if (it != null && it.movieList.isNotEmpty()) {
-                    Log.i(TAG, "data size :" + it.movieList.size)
-                    movieList = it.movieList
-                    mAdapter?.submitList(it.movieList)
+                if (it != null && it.results.isNotEmpty()) {
+                    Log.i(TAG, "data size :" + it.results.size)
+                    movieList = it.results
+                    mAdapter?.submitList(it.results)
                 } else {
                     Log.i(TAG, "response is null")
 
                 }
             })
 
-        mSearchViewModel.searchResponse.observe(viewLifecycleOwner, Observer {
+        mMovieViewModel.searchResponse.observe(viewLifecycleOwner, Observer {
             if (it != null && !it.isNullOrEmpty()) {
                 Log.i(TAG, "data size :" +  it.size)
                 mAdapter?.submitList( it)
@@ -99,7 +98,7 @@ class MovieFragment : Fragment() {
         })
     }
 
-    private fun showUpdateLevelSheet(movieInfo: Movie) {
+    private fun showUpdateLevelSheet(movieInfo: DataModel) {
         val bottomSheetFragment = MovieDetailBottomSheet(movieInfo)
         bottomSheetFragment.show(activity!!.supportFragmentManager, bottomSheetFragment.tag)
     }

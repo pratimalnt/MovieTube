@@ -11,5 +11,7 @@ class ApiConstants {
         const val API_KEY = "325a2832e37f32ffdf4b2c29749922d8"
         const val MOVIE_IMG_BASE_URL = "https://image.tmdb.org/t/p/w185"
         const val POPULAR_DESC = "popularity.desc"
+        var emailList = listOf("abc@gmail.com","dcc@gmail.com")
+        var passwordList = listOf("abc123","qwerty")
     }
 }

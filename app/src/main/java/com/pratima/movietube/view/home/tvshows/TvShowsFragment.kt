@@ -10,17 +10,16 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.pratima.movietube.R
-import com.pratima.movietube.model.TvShows
 import com.pratima.movietube.viewmodel.TvShowsViewModel
 import androidx.lifecycle.Observer
-import com.pratima.movietube.viewmodel.SearchViewModel
+import com.pratima.movietube.model.DataModel
+import com.pratima.movietube.view.home.MovieAdapter
 
 class TvShowsFragment : Fragment() {
     private val TAG = this::class.java.simpleName
-    private lateinit var mSearchViewModel: SearchViewModel
     private lateinit var mTvShowsViewModel: TvShowsViewModel
     private var mRecyclerView: RecyclerView? = null
-    private var mAdapter: TvShowsAdapter? = null
+    private var mAdapter: MovieAdapter? = null
 
     companion object {
         /**
@@ -55,14 +54,14 @@ class TvShowsFragment : Fragment() {
     private fun initViews(rootView: View) {
         mRecyclerView = rootView.findViewById(R.id.recyclerView)
 
-        mAdapter = TvShowsAdapter()
+        mAdapter = MovieAdapter()
 
         mRecyclerView?.setHasFixedSize(true)
         mRecyclerView?.layoutManager = GridLayoutManager(activity, 3)
         mRecyclerView?.adapter = mAdapter
 
         mAdapter!!.setOnItemClickListener {
-            showUpdateLevelSheet(it as TvShows)
+            showUpdateLevelSheet(it as DataModel)
         }
     }
 
@@ -70,9 +69,9 @@ class TvShowsFragment : Fragment() {
         mTvShowsViewModel.popularTvShowsData
             .observe(this, Observer {
 
-                if (it != null && it.tvShowsList.isNotEmpty()) {
-                    Log.i(TAG, "data size :" + it.tvShowsList.size)
-                    mAdapter!!.submitList(it.tvShowsList)
+                if (it != null && it.results.isNotEmpty()) {
+                    Log.i(TAG, "data size :" + it.results.size)
+                    mAdapter!!.submitList(it.results)
                 } else {
                     Log.i(TAG, "response is null")
 
@@ -80,7 +79,7 @@ class TvShowsFragment : Fragment() {
             })
     }
 
-    private fun showUpdateLevelSheet(tvShowsInfo: TvShows) {
+    private fun showUpdateLevelSheet(tvShowsInfo: DataModel) {
         val bottomSheetFragment = TvShowsDetailsBottomSheet(tvShowsInfo)
         bottomSheetFragment.show(activity!!.supportFragmentManager, bottomSheetFragment.tag)
     }

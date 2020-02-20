@@ -8,17 +8,16 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pratima.movietube.R
 import com.pratima.movietube.api.ApiConstants
-import com.pratima.movietube.model.TvShows
+import com.pratima.movietube.model.DataModel
 import com.pratima.movietube.view.lttsPlayer.PlayerActivity
 
-class TvShowsDetailsBottomSheet(tvShowsInfo: TvShows) : BottomSheetDialogFragment()  {
+class TvShowsDetailsBottomSheet(tvShowsInfo: DataModel) : BottomSheetDialogFragment()  {
     private val mTvShowsInfo = tvShowsInfo
 
     override fun onCreateView(
@@ -57,11 +56,11 @@ class TvShowsDetailsBottomSheet(tvShowsInfo: TvShows) : BottomSheetDialogFragmen
             playVideo()
         }
 
-        movieTitle.text = mTvShowsInfo.originalName
+        movieTitle.text = mTvShowsInfo.original_name
         movieDescription.text = mTvShowsInfo.overview
-        movieRating.text = mTvShowsInfo.voteAverage.toString()
+        movieRating.text = mTvShowsInfo.vote_average.toString()
 
-        val imgPosterUrl = ApiConstants.MOVIE_IMG_BASE_URL + mTvShowsInfo.backDropPath
+        val imgPosterUrl = ApiConstants.MOVIE_IMG_BASE_URL + mTvShowsInfo.backdrop_path
 
         Glide.with(context!!).load(imgPosterUrl)
             .placeholder(R.drawable.ic_app_tube)

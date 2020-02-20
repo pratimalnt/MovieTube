@@ -14,12 +14,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pratima.movietube.R
 import com.pratima.movietube.api.ApiConstants
-import com.pratima.movietube.model.Movie
+import com.pratima.movietube.model.DataModel
 import com.pratima.movietube.view.lttsPlayer.PlayerActivity
 
 
-class MovieDetailBottomSheet(movieInfo: Movie) : BottomSheetDialogFragment() {
-
+class MovieDetailBottomSheet(movieInfo: DataModel) : BottomSheetDialogFragment() {
     private val mMovieInfo = movieInfo
 
 
@@ -59,11 +58,11 @@ class MovieDetailBottomSheet(movieInfo: Movie) : BottomSheetDialogFragment() {
             playVideo()
         }
 
-        movieTitle.text = mMovieInfo.originalTitle
+        movieTitle.text = mMovieInfo.original_title
         movieDescription.text = mMovieInfo.overview
-        movieRating.text = mMovieInfo.voteAverage.toString()
+        movieRating.text = mMovieInfo.vote_average.toString()
 
-        val imgPosterUrl = ApiConstants.MOVIE_IMG_BASE_URL + mMovieInfo.backDropPath
+        val imgPosterUrl = ApiConstants.MOVIE_IMG_BASE_URL + mMovieInfo.backdrop_path
 
         Glide.with(context!!).load(imgPosterUrl)
             .placeholder(R.drawable.ic_app_tube)
