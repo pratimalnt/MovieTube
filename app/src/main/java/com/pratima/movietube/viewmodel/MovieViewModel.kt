@@ -12,16 +12,12 @@ import com.pratima.movietube.repository.DataRepository
 class MovieViewModel(application: Application) : AndroidViewModel(application) {
     var popularMovieLiveData: LiveData<DataModel>?
     private val TAG: String = "SearchViewModel"
-    private var searchString = MutableLiveData<String>()
-    private var searchData: LiveData<DataModel>
-    var searchResponse: MutableLiveData<List<DataModel>>
+    var searchResponse: MutableLiveData<List<DataModel>> = MutableLiveData()
 
     init {
-        searchString.value = null
-        searchData = MutableLiveData()
-        searchResponse = MutableLiveData()
+
         searchResponse.value = null
-        Log.d(TAG, "searchData init::$searchData")
+        //Log.d(TAG, "searchData init::$searchData")
 
         val movieRepository = DataRepository()
         popularMovieLiveData = movieRepository.getPopularMovies(
