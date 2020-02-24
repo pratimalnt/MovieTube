@@ -55,8 +55,7 @@ class MovieFragment : Fragment() {
         // View Model
         mMovieViewModel =
             ViewModelProviders.of(this).get<MovieViewModel>(MovieViewModel::class.java)
-        mMovieViewModel =
-            ViewModelProviders.of(this.activity!!).get<MovieViewModel>(MovieViewModel::class.java)
+
     }
 
     private fun initViews(rootView: View) {
